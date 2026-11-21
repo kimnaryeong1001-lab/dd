@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>역사의 갈림길 - 한국 현대사 시뮬레이션</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Gowun Batang (명조) & Pretendard/Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Song+Myung&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#f7f5ef] text-[#1e2229] font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-white">
+
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="border-b border-[#e5dfd3] bg-[#ffffff]/90 backdrop-blur sticky top-0 z-40 px-4 py-3 shadow-sm">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer group" onclick="restartToHome()">
+        <span class="text-2xl group-hover:rotate-12 transition transform duration-300">⏳</span>
+        <div>
+          <h1 class="font-serif font-black text-lg sm:text-xl text-stone-900 tracking-wider group-hover:text-amber-700 transition">역사의 갈림길</h1>
+          <p class="text-xs text-stone-500">대한민국 현대사 경제·사회·역사 시뮬레이션</p>
+        </div>
+      </div>
+      <div id="header-status" class="hidden items-center space-x-3 sm:space-x-4 text-xs sm:text-sm">
+        <span id="header-role-badge" class="px-3.5 py-1 rounded-full font-bold border shadow-sm"></span>
+        <span id="header-era-badge" class="px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-300 font-mono font-bold"></span>
+        <button id="sound-toggle-btn" class="text-stone-600 hover:text-amber-700 transition px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 border border-stone-200" title="효과음 켜기/끄기">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="flex-grow max-w-5xl w-full mx-auto p-4 sm:p-6 sm:py-8 flex flex-col justify-center">
+
+    <!-- 1. 시작 및 역할 선택 화면 (START SCREEN) -->
+    <section id="screen-start" class="fade-in-section py-6">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="inline-block text-xs uppercase tracking-widest text-amber-800 font-black mb-3 bg-amber-100 px-4 py-1.5 rounded-full border border-amber-300 shadow-sm">
+          1948 제주 4·3 사건부터 21세기 현대사까지
+        </span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-black text-stone-900 mb-5 leading-tight tracking-tight">
+          격동의 대한민국 현대사,<br class="hidden sm:inline"> 당신은 누구의 삶으로 건너시겠습니까?
+        </h2>
+        <p class="text-stone-700 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
+          제주 4·3 사건의 비극, 6·25 전쟁의 잿더미, 4·19와 6월 민주항쟁, 한강의 기적과 IMF 외환위기까지.<br class="hidden sm:inline">
+          세 가지 서로 다른 입장에서 역사의 거대한 갈림길과 가치관 충돌을 직접 마주해보세요.
+        </p>
+      </div>
+
+      <!-- 역할 선택 카드 그리드 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <!-- 1. 학생 -->
+        <div class="role-card group bg-white border-2 border-stone-200 hover:border-blue-500 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 flex flex-col justify-between cursor-pointer" onclick="selectRole('student')">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-3xl mb-5 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-sm">
+              🎒
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black font-serif text-stone-900 group-hover:text-blue-700 transition">학생의 입장</h3>
+            <p class="text-xs text-blue-700 font-bold mb-3 tracking-wide">순수한 정의감과 배움, 시대의 저항</p>
+            <p class="text-stone-600 text-sm leading-relaxed mb-5">
+              불의에 침묵할 것인가, 거리로 나설 것인가? 배움에 대한 갈망과 시대적 부름 사이에서 번민하는 청년의 삶을 체험합니다.
+            </p>
+          </div>
+          <div>
+            <div class="text-xs text-stone-500 border-t border-stone-100 pt-3 space-y-1">
+              <div>📊 <span class="text-stone-800 font-bold">관리 지표</span>: 사회의식 · 학업지식 · 가족안위 · 미래희망</div>
+            </div>
+            <button class="mt-4 w-full py-3 rounded-xl bg-blue-50 group-hover:bg-blue-600 text-blue-700 group-hover:text-white text-sm font-bold tracking-wide transition shadow-sm">
+              학생으로 시작하기
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. 어른 (시민/가장) -->
+        <div class="role-card group bg-white border-2 border-stone-200 hover:border-emerald-500 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-500/10 flex flex-col justify-between cursor-pointer" onclick="selectRole('citizen')">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center text-3xl mb-5 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition duration-300 shadow-sm">
+              💼
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black font-serif text-stone-900 group-hover:text-emerald-700 transition">어른의 입장</h3>
+            <p class="text-xs text-emerald-700 font-bold mb-3 tracking-wide">가족의 생계와 안전, 삶의 무게</p>
+            <p class="text-stone-600 text-sm leading-relaxed mb-5">
+              전쟁과 빈곤의 잿더미 속에서 내 가족의 밥그릇을 지켜내야 합니다. 일터에서 땀 흘려 가계를 부양한 생활인의 삶을 체험합니다.
+            </p>
+          </div>
+          <div>
+            <div class="text-xs text-stone-500 border-t border-stone-100 pt-3 space-y-1">
+              <div>📊 <span class="text-stone-800 font-bold">관리 지표</span>: 가계자산 · 가족행복 · 심신건강 · 사회신뢰</div>
+            </div>
+            <button class="mt-4 w-full py-3 rounded-xl bg-emerald-50 group-hover:bg-emerald-600 text-emerald-700 group-hover:text-white text-sm font-bold tracking-wide transition shadow-sm">
+              어른으로 시작하기
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. 정치인 (정책결정자) -->
+        <div class="role-card group bg-white border-2 border-stone-200 hover:border-rose-500 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-rose-500/10 flex flex-col justify-between cursor-pointer" onclick="selectRole('politician')">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center text-3xl mb-5 group-hover:scale-110 group-hover:bg-rose-600 group-hover:text-white transition duration-300 shadow-sm">
+              🏛️
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black font-serif text-stone-900 group-hover:text-rose-700 transition">정치인의 입장</h3>
+            <p class="text-xs text-rose-700 font-bold mb-3 tracking-wide">국가의 운명과 경제성장, 권력의 결단</p>
+            <p class="text-stone-600 text-sm leading-relaxed mb-5">
+              국가 안보와 경제 발전, 사회 안정 사이에서 숱한 비판과 찬사를 감당하며 국정을 이끌어야 했던 지도자의 번민을 체험합니다.
+            </p>
+          </div>
+          <div>
+            <div class="text-xs text-stone-500 border-t border-stone-100 pt-3 space-y-1">
+              <div>📊 <span class="text-stone-800 font-bold">관리 지표</span>: 국정지지율 · 경제성장 · 사회치안 · 국가신인도</div>
+            </div>
+            <button class="mt-4 w-full py-3 rounded-xl bg-rose-50 group-hover:bg-rose-600 text-rose-700 group-hover:text-white text-sm font-bold tracking-wide transition shadow-sm">
+              정치인으로 시작하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 게임 메인 시뮬레이션 화면 (GAMEPLAY SCREEN) -->
+    <section id="screen-game" class="hidden fade-in-section">
+      
+      <!-- 상단 스탯 대시보드 -->
+      <div id="stats-dashboard" class="bg-white border border-[#e5dfd3] rounded-2xl p-4 sm:p-5 mb-6 shadow-sm">
+        <div class="flex items-center justify-between mb-3 text-xs sm:text-sm text-stone-500 pb-2.5 border-b border-stone-200">
+          <span class="font-bold flex items-center gap-2 text-stone-800">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            현재 나의 상태 지표
+          </span>
+          <span id="role-title-detail" class="text-amber-800 font-serif font-black text-sm sm:text-base"></span>
+        </div>
+        <div id="stats-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <!-- 스탯 바 동적 삽입 -->
+        </div>
+      </div>
+
+      <!-- 신문/상황 브리핑 카드 -->
+      <div class="newspaper-card rounded-2xl p-6 sm:p-9 shadow-lg relative overflow-hidden mb-6">
+        <!-- 신문 상단 발행 라인 -->
+        <div class="border-b-2 border-stone-800 pb-3 mb-5 flex flex-wrap items-center justify-between gap-2 text-stone-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xs uppercase tracking-widest font-black px-2.5 py-1 bg-stone-900 text-amber-100 rounded">역사 브리핑</span>
+            <span id="story-era-tag" class="font-serif font-black text-sm sm:text-base text-stone-900"></span>
+          </div>
+          <div id="story-year-tag" class="text-xs sm:text-sm font-mono font-black text-stone-800 bg-amber-100/90 border border-amber-300 px-3 py-0.5 rounded-full"></div>
+        </div>
+
+        <!-- 신문 1면 구성: 헤드라인 -->
+        <h3 id="story-headline" class="font-serif text-2xl sm:text-4xl font-black text-stone-950 leading-snug tracking-tight mb-5"></h3>
+
+        <!-- 본문 내용: 인용구 & 핵심 배경 -->
+        <div class="space-y-4 mb-6">
+          <div class="bg-[#f7f3ea] border-l-4 border-amber-600 p-4 sm:p-5 rounded-r text-stone-900 text-sm sm:text-base font-serif leading-relaxed italic shadow-sm">
+            <i class="fa-solid fa-quote-left text-amber-700/60 mr-2 text-base"></i>
+            <span id="story-quote" class="font-bold"></span>
+          </div>
+          <div id="story-body" class="text-stone-800 text-base sm:text-lg leading-relaxed font-serif bg-white/60 p-4 sm:p-5 rounded-xl border border-stone-200"></div>
+        </div>
+
+        <!-- 각주(Footnotes) 안내 영역 -->
+        <div id="footnotes-section" class="mt-6 pt-5 border-t border-stone-200">
+          <h5 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <i class="fa-solid fa-book-bookmark text-amber-600"></i> 시대 역사 용어 각주 해설
+          </h5>
+          <div id="footnotes-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <!-- 각주 항목 동적 삽입 -->
+          </div>
+        </div>
+
+        <!-- 시대 분위기 아이콘 워터마크 -->
+        <div class="absolute -right-6 -bottom-8 text-stone-400/10 text-9xl pointer-events-none select-none">
+          <i id="era-watermark-icon" class="fa-solid fa-landmark"></i>
+        </div>
+      </div>
+
+      <!-- 선택지 영역 -->
+      <div class="space-y-3.5 mb-8">
+        <h4 class="text-xs sm:text-sm uppercase tracking-wider text-amber-900 font-black flex items-center gap-2">
+          <i class="fa-solid fa-hand-pointer text-amber-600 animate-bounce"></i> 당신의 결단을 선택하십시오:
+        </h4>
+        <div id="choices-container" class="grid grid-cols-1 gap-3.5">
+          <!-- 선택지 버튼 동적 삽입 -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. 결과 및 역사 팩트체크 모달 (OUTCOME & FACT MODAL) -->
+    <div id="fact-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white border-2 border-amber-500 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between pb-3.5 border-b border-stone-200 mb-5">
+          <span class="text-xs sm:text-sm font-bold px-3.5 py-1.5 bg-amber-100 text-amber-900 border border-amber-300 rounded-full flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-amber-700"></i> 결단의 결과와 역사 팩트
+          </span>
+          <span id="modal-chapter-tag" class="text-xs sm:text-sm text-stone-600 font-mono font-bold"></span>
+        </div>
+
+        <!-- 나의 선택에 따른 결과 텍스트 -->
+        <div class="mb-5 bg-[#fffdf8] border-l-4 border-amber-500 p-4 sm:p-5 rounded-r shadow-sm border border-stone-200">
+          <h4 class="text-sm sm:text-base font-bold text-amber-900 mb-2">나의 선택 결과:</h4>
+          <p id="modal-outcome-text" class="text-sm sm:text-base text-stone-800 leading-relaxed font-serif"></p>
+          <div id="modal-stat-changes" class="mt-4 flex flex-wrap gap-2 text-xs sm:text-sm"></div>
+        </div>
+
+        <!-- 실제 역사적 사실 (Historical Fact) -->
+        <div class="bg-[#f9f7f1] border border-stone-200 rounded-2xl p-4 sm:p-5 mb-6">
+          <h5 class="text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-landmark text-amber-700"></i> 당시 실제 역사적 사실 (Historical Fact)
+          </h5>
+          <p id="modal-fact-text" class="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans"></p>
+        </div>
+
+        <!-- 다음 챕터 진행 버튼 -->
+        <div class="flex justify-end">
+          <button id="modal-next-btn" class="px-7 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm sm:text-base font-bold transition flex items-center gap-2 shadow-lg shadow-amber-600/30 hover:scale-105 transform duration-200">
+            <span>다음 시대로 나아가기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 엔딩 화면 (ENDING SCREEN) -->
+    <section id="screen-ending" class="hidden fade-in-section py-6">
+      
+      <!-- 핵심 감동 연출 배너 -->
+      <div class="ending-box text-center max-w-3xl mx-auto mb-10 rounded-3xl p-6 sm:p-12 border-2 border-amber-300 relative overflow-hidden">
+        
+        <div class="w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-6 rounded-full bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-4xl sm:text-5xl text-amber-700 shadow-md">
+          🕊️
+        </div>
+
+        <p class="text-xs sm:text-sm uppercase tracking-widest text-amber-800 font-black mb-2">Simulation Complete</p>
+        <h2 class="text-3xl sm:text-5xl font-serif font-black text-stone-900 mb-6 tracking-tight">
+          체험이 끝났습니다.
+        </h2>
+
+        <!-- 요청하신 핵심 명문구 -->
+        <div class="ending-quote-box my-8 py-7 px-5 sm:px-8 rounded-2xl">
+          <p class="quote-shimmer font-serif text-xl sm:text-3xl font-black leading-relaxed tracking-wide">
+            "우리는 너무 쉽게 서로를 판단하고,<br class="hidden sm:inline">
+            너무 어렵게 서로를 이해하려 합니다."
+          </p>
+        </div>
+
+        <!-- ⭐ [새로 추가된 핵심] 나의 결정에 따른 3줄 결과 요약 박스 ⭐ -->
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-400/80 rounded-2xl p-6 sm:p-7 text-left mb-8 max-w-2xl mx-auto shadow-md">
+          <h4 class="text-xs sm:text-sm uppercase tracking-wider text-amber-900 font-black mb-4 flex items-center gap-2 pb-2.5 border-b border-amber-200">
+            <i class="fa-solid fa-compass text-amber-600 text-base"></i> 나의 결정들이 만든 3가지 역사적 결과
+          </h4>
+          <div id="ending-3line-result" class="space-y-3 font-serif text-stone-800 text-sm sm:text-base leading-relaxed">
+            <!-- 자바스크립트에서 3줄의 맞춤형 결과 동적 삽입 -->
+          </div>
+        </div>
+
+        <p id="ending-summary-text" class="text-stone-700 text-sm sm:text-base leading-relaxed font-serif max-w-2xl mx-auto mb-8 font-normal"></p>
+
+        <!-- 최종 스탯 및 여정 요약 카드 -->
+        <div class="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200 text-left mb-8 max-w-xl mx-auto shadow-sm">
+          <h4 class="text-xs sm:text-sm uppercase tracking-wider text-amber-900 font-bold mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-chart-line text-amber-600"></i> 나의 최종 인생 지표 & 역사적 회고
+          </h4>
+          <div id="ending-final-stats" class="grid grid-cols-2 gap-3 text-xs sm:text-sm mb-4">
+            <!-- 최종 스탯 -->
+          </div>
+          <div id="ending-evaluation" class="text-xs sm:text-sm text-stone-800 border-t border-stone-100 pt-3.5 leading-relaxed font-serif">
+            <!-- 종합 평가 -->
+          </div>
+        </div>
+
+        <!-- 다른 입장으로 다시 플레이하기 버튼 그룹 -->
+        <div class="space-y-3.5">
+          <p class="text-xs sm:text-sm text-stone-600 mb-2">다른 이들의 삶과 무게는 어떠했을까요? 다른 시점으로 다시 경험해보세요.</p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="startSpecificRole('student')" class="px-5 py-3 rounded-xl bg-blue-50 hover:bg-blue-600 border-2 border-blue-200 hover:border-blue-600 text-blue-700 hover:text-white text-xs sm:text-sm font-bold transition hover:scale-105 transform shadow-sm">
+              🎒 학생의 입장으로 체험
+            </button>
+            <button onclick="startSpecificRole('citizen')" class="px-5 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-600 border-2 border-emerald-200 hover:border-emerald-600 text-emerald-700 hover:text-white text-xs sm:text-sm font-bold transition hover:scale-105 transform shadow-sm">
+              💼 어른의 입장으로 체험
+            </button>
+            <button onclick="startSpecificRole('politician')" class="px-5 py-3 rounded-xl bg-rose-50 hover:bg-rose-600 border-2 border-rose-200 hover:border-rose-600 text-rose-700 hover:text-white text-xs sm:text-sm font-bold transition hover:scale-105 transform shadow-sm">
+              🏛️ 정치인의 입장으로 체험
+            </button>
+          </div>
+          <div class="pt-4">
+            <button onclick="restartToHome()" class="text-xs sm:text-sm text-stone-500 hover:text-amber-800 underline underline-offset-4 transition">
+              처음 화면으로 돌아가기
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="border-t border-[#e2ddd3] py-4 px-4 text-center text-xs text-stone-500 bg-[#f4f0e6]">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>대한민국 현대사 교육·체험 시뮬레이션 | 1948 제주 4·3 사건부터 21세기 현대사까지</p>
+      <p class="text-[11px] text-stone-500">The Crossroads of Korean Modern History</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

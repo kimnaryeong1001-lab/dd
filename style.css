@@ -1,0 +1,287 @@
+@charset "UTF-8";
+
+/* =========================================================
+   역사의 갈림길 (The Crossroads of History)
+   - 화사하고 밝은 고품격 라이트 테마 (Museum & Archival Theme)
+   - 가독성 극대화 및 미려한 각주(Footnotes) 시스템
+   ========================================================= */
+
+/* 기본 폰트 및 화사하고 밝은 배경 */
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f7f5ef;
+  background-image: 
+    radial-gradient(#e7e3d8 1.2px, transparent 1.2px),
+    linear-gradient(to bottom, #fdfbf7, #f3efe5);
+  background-size: 24px 24px, 100% 100%;
+  color: #1e2229;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: 'Gowun Batang', 'Song Myung', serif;
+}
+
+/* 1. 신문 1면 화사한 양장본 스타일 */
+.newspaper-card {
+  background-color: #ffffff;
+  background-image: linear-gradient(to bottom, #ffffff, #fdfbf7);
+  color: #1a1c22;
+  border: 2px solid #e2ddd3;
+  box-shadow: 0 15px 35px -8px rgba(90, 75, 55, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newspaper-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #92400e,
+    #92400e 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  opacity: 0.6;
+}
+
+/* 2. 역사 아카이브 사진 프레임 */
+.archive-photo-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 2px solid #dfd8cb;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  background-color: #ebe6dc;
+}
+
+.archive-photo-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  filter: contrast(105%) brightness(98%);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-photo-frame:hover .archive-photo-img {
+  transform: scale(1.03);
+}
+
+/* 3. 각주(Footnotes) 스타일링 */
+.footnote-ref {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #b45309;
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 9999px;
+  padding: 1px 6px;
+  margin: 0 2px;
+  vertical-align: super;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footnote-ref:hover {
+  background-color: #f59e0b;
+  color: #ffffff;
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.footnote-card {
+  background-color: #fbf9f4;
+  border: 1px solid #e7e1d5;
+  border-left: 3.5px solid #d97706;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.footnote-card:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left-color: #b45309;
+}
+
+/* 4. 스탯 바 게이지 */
+.stat-bar-bg {
+  background-color: #ebe7de;
+  border-radius: 9999px;
+  overflow: hidden;
+  height: 9px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 5. 선택지 버튼 인터랙션 */
+.choice-btn {
+  background-color: #ffffff;
+  border: 1.5px solid #dfd8cb;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.choice-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.choice-btn:hover {
+  background-color: #fffdf9;
+  border-color: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -4px rgba(217, 119, 6, 0.15);
+}
+
+.choice-btn:hover::after {
+  background-color: #d97706;
+}
+
+.choice-btn:active {
+  transform: translateY(0);
+}
+
+/* 6. 플로팅 스탯 변화 애니메이션 */
+.floating-stat {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  font-family: 'Gowun Batang', serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  animation: floatUp 1.4s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.85);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-15px) scale(1.05);
+  }
+  80% {
+    opacity: 0.95;
+    transform: translateY(-45px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-70px) scale(0.9);
+  }
+}
+
+/* 7. 화면 전환 애니메이션 */
+.fade-in-section {
+  animation: fadeIn 0.45s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 8. 모달 애니메이션 */
+#fact-modal:not(.hidden) {
+  animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+#fact-modal > div {
+  animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.93) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 9. 화사한 엔딩 명문구 배너 */
+.ending-box {
+  background: linear-gradient(145deg, #ffffff, #fdfbf7);
+  box-shadow: 0 25px 60px -15px rgba(180, 83, 9, 0.15), 0 0 0 1px rgba(217, 119, 6, 0.2);
+}
+
+.ending-quote-box {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-left: 5px solid #d97706;
+  border-right: 5px solid #d97706;
+  box-shadow: 0 10px 30px -5px rgba(217, 119, 6, 0.18);
+  position: relative;
+}
+
+.quote-shimmer {
+  color: #78350f;
+  background: linear-gradient(90deg, #78350f 0%, #b45309 50%, #78350f 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* 10. 커스텀 스크롤바 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1ede3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4ccbd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8ad9c;
+}
